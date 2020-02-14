@@ -51,10 +51,11 @@ public struct BagIterator<E>: IteratorProtocol {
 }
 
 var nums = Bag<Int>()
+print(nums.isEmpty())
 nums.add(1)
 nums.add(2)
 nums.add(3)
-
+print(nums.isEmpty())
 for num in nums {
     print(num)
 }

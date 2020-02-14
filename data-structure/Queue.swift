@@ -1,6 +1,6 @@
 import Foundation
 
-public final class Stack<E>: Sequence {
+public final class Queue<E>: Sequence {
     private var count: Int
     private var items: [E]
     init() {
@@ -8,43 +8,42 @@ public final class Stack<E>: Sequence {
         self.items = []
     }
 
-    func push(_ item: E) {
+    func enqueue(_ item: E) {
         items.append(item)
         self.count += 1
     }
 
-    func pop() -> E? {
-        let e = items.removeLast()
+    func dequeue() -> E? {
+        let e = items.remove(at:0)
         self.count -= 1
         return e
     }
 
     func peek() -> E? {
-        return items[self.count-1]
+        return items[0]
     }
 
     func isEmpty() -> Bool {
         return self.count == 0
     }
 
-    public func makeIterator() -> StackIterator<E> {
-        return StackIterator(self.items)
+    public func makeIterator() -> QueueIterator<E> {
+        return QueueIterator(self.items)
     }
 }
 
-public struct StackIterator<E>: IteratorProtocol {
+public struct QueueIterator<E>: IteratorProtocol {
 
     private let items: [E]
     private var index: Int?
 
     init(_ items: [E]) {
         self.items = items
-        self.index = self.items.count
     }
 
     private func nextIndex(for index: Int?) -> Int? {
-        if let index = index, 0 < index {
-            return index - 1
+        if let index = index, index < self.items.count - 1 {
+            return index + 1
         }
         if index == nil, !self.items.isEmpty {
             return 0
@@ -62,11 +61,11 @@ public struct StackIterator<E>: IteratorProtocol {
 }
 
 
-var nums = Stack<Int>()
+var nums = Queue<Int>()
 print(nums.isEmpty())
-nums.push(1)
-nums.push(2)
-nums.push(3)
+nums.enqueue(1)
+nums.enqueue(2)
+nums.enqueue(3)
 print(nums.isEmpty())
 for num in nums {
     print(num)

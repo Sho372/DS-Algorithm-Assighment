@@ -46,3 +46,4 @@ let emojis = MyIterable(["🐶", "🐔", "🐵", "🦁", "🐯", "🐭", "🐱",
 for emoji in emojis {
     print(emoji)
 }
+
