@@ -110,15 +110,9 @@ func fileCrawlerHelper(pathStr: String, indent: String) {
         }
     }
 }
+
 func fileCrawler(_ pathStr: String) {
     fileCrawlerHelper(pathStr: pathStr, indent: "")
     print("\(dirCnt) directories, \(fileCnt) files")
 }
 
-// File.swift
-let path1 = "file:///home/shouhei/Documents/19-CICCC/swifty/DS-Algorithms-Assighment/file-system-crawler/File.swift"
-// dir1
-let path2 = "/home/shouhei/Documents/19-CICCC/swifty/DS-Algorithms-Assighment/file-system-crawler/dir1"
-let path3 = "/home/shouhei/Documents/19-CICCC/swifty"
-
-fileCrawler(path2)
