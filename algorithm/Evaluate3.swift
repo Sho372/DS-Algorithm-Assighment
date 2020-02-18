@@ -26,58 +26,27 @@ extension String {
 	}
 }
 
-func evaluate(_ expression: String, _ pos: Int) -> Int {
 
-    var expr = expression
-
-    print("-----------------------------")
-    print("eval start")
-    print("pos: \(pos)")
-    print("expr: \(expr)")
-    print("-----------------------------")
+func updateExpr(_ expr: String, _ pos: Int) -> String {
 
     // base case
     if expr.count == 1 {
-        if let n = Int(expr) {return n} 
+        return expr
     }
 
     let firstIndex = expr.index(expr.startIndex, offsetBy: pos)
     let secondIndex = expr.index(expr.startIndex, offsetBy: pos+1)
 
     // e.g. '(2' -> expression start
-    if(expr[firstIndex] == "(" && "0123456789".contains(expr[secondIndex])) {
+    if(expr[firstIndex] == "(" && expr[secondIndex].isNumber) {
         // TODO calculate expression
         print("calc")
-        return 1
+        return "x"
     }
-
-    // recursive case
-    print("expr \(expr)")
-    if(expr.count == 5) {
-        print("hoge1 \(expr)")
-        return 5
-    }
-
-    if(expr.contains("(") && expr.contains(")")){
-        print("[replace start]")
-        if(expr.count == 5) {
-            return 9
-        } else {
-            expr = expr.replacingOccurrences(of: expr[pos+1,pos+6], with: String(evaluate(expr, pos+1)))
-            print("hoge2")
-            print("[replace end]")
-            return evaluate(expr, 1)
-        }
-    }
-    print("hoge5")
-    return 0
+    return expr.replacingOccurrences(of: expr[pos+1,pos+6], with: String(updateExpr(expr, pos+1)))
 }
 
-print(evaluate("7", 0)) // 7
-print(evaluate("(2+2)", 0)) // 4
-print(evaluate("((1+3)+((1+2)*5))", 0))
+print(updateExpr("((2+2)+(1+3))",0))
+print(updateExpr("(x+(1+3))",0))
 
-
-
-
-
+(4+((1+2)*5))

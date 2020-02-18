@@ -4,6 +4,7 @@ import Glibc
 let fm = FileManager.default
 var dirCnt = 0
 var fileCnt = 0
+
 /*
     check if the path exists or not
 */
@@ -85,8 +86,6 @@ func fileCrawlerHelper(pathStr: String, indent: String) {
 
     let fileURLs = getListOfFiles(pathStr)
 
-    // recursive section
-    // dirctory with files
     for i in 0..<fileURLs.count {
             let path = fileURLs[i].path
             if isDirectory(path) {
@@ -97,7 +96,7 @@ func fileCrawlerHelper(pathStr: String, indent: String) {
                         fileCrawlerHelper(pathStr: path, indent: "\(indent)    ")
                 } else {
                         print(indent + "├─" + dir)
-                        fileCrawlerHelper(pathStr: path, indent: "\(indent)│     ")
+                        fileCrawlerHelper(pathStr: path, indent: "\(indent)│   ")
                 }
             } 
         } else if let file = getFileName(path) {
@@ -116,3 +115,5 @@ func fileCrawler(_ pathStr: String) {
     print("\(dirCnt) directories, \(fileCnt) files")
 }
 
+
+fileCrawler("/home/shouhei/Documents/19-CICCC/swifty/DS-Algorithms-Assighment/file-system-crawler/dir1")
