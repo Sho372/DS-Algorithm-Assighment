@@ -114,6 +114,3 @@ func fileCrawler(_ pathStr: String) {
     fileCrawlerHelper(pathStr: pathStr, indent: "")
     print("\(dirCnt) directories, \(fileCnt) files")
 }
-
-
-fileCrawler("/home/shouhei/Documents/19-CICCC/swifty/DS-Algorithms-Assighment/file-system-crawler/dir1")
