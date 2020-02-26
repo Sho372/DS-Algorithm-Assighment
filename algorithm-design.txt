@@ -1,0 +1,270 @@
+-------
+input 1
+-------
+N 12345678
+M 3
+largestを求める場合は
+    -> Min heapを作って、add -> removeを繰り返して、最後に残ったものがlargest
+smallestを求める場合は
+    -> Max heapを作って、add -> removeを繰り返して、最後に残ったものがsamallest
+
+
+smallest(123)を求める
+
+--------
+count: 0
+--------
+
+      []
+     /  \
+   []    [] 
+  /
+[] 
+
+--------
+count: 1
+--------
+
+      [1]
+     /  \
+   []    []
+  /
+[] 
+
+--------
+count: 2
+--------
+
+      [2]
+     /  \
+   [1]    []
+  /
+[] 
+
+--------
+count: 0
+--------
+
+      [3]
+     /  \
+   [1]    [2]
+  /
+[] 
+
+--------
+count: 0
+--------
+
+      [4]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+--------
+count: 0
+--------
+
+      [4]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+remove
+      [3]
+     /  \
+   [1]    [2]
+  /
+[] 
+
+add
+      [5]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+
+--------
+count: 0
+--------
+
+      [5]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+remove
+      [3]
+     /  \
+   [1]    [2]
+  /
+[] 
+
+
+add
+      [6]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+--------
+count: 0
+--------
+
+      [6]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+remove
+      [3]
+     /  \
+   [1]    [2]
+  /
+[] 
+
+add
+      [7]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+
+--------
+count: 0
+--------
+
+      [7]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+remove
+      [3]
+     /  \
+   [1]    [2]
+  /
+[] 
+
+add
+      [8]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+
+--------
+count: 0
+--------
+
+      [8]
+     /  \
+   [3]    [2]
+  /
+[1] 
+
+remove
+      [3]
+     /  \
+   [1]    [2]
+  /
+[] 
+
+======================
+--------
+count: 0
+--------
+
+
+      [3]
+     /  \
+   [1]    [2]
+  /
+[] 
+
+remove  -> |3|
+
+      [2]
+     /  \
+   []    [1]
+  /
+[] 
+
+remove  -> |3|2|
+
+      [1]
+     /  \
+   []    []
+  /
+[] 
+
+
+remove  -> |3|2|1|
+
+      []
+     /  \
+   []    []
+  /
+[] 
+
+----------------
+time complexity
+----------------
+
+
+T(N,M) = (M+1) * logM + (N-(M+1)) * 2logM + (M+1) * logM
+
+= 2MlogM + 2logM + 2NlogM -2MlogM - 2logM
+
+= 2NlogM -> O(NlogM) < NlogN << N^2
+
+\begin{eqnarray}
+T\left (N,M  \right ) &=& \left ( M+1 \right ) \cdot \log M + \left ( N-\left ( M+1 \right ) \right )\cdot 2 \log M + \left ( M+1 \right )\log M \\ 
+&=& 2M \log M + 2 \log M + 2N \log M - 2M \log M - 2 \log M \\
+&=& 2N \log M \\
+&\Rightarrow& \mathcal{O}(N\log{}M)
+\end{eqnarray}
+
+
+
+
+
+
+
+
+\begin{eqnarray}
+T\left (N,M  \right ) &=&  \sum_{k=1}^M \log k + \left ( N-\left ( M+1 \right ) \right )\cdot 2 \log (M+1) + \sum_{k=1}^M \log k \\ 
+&=& \left ( N-\left ( M+1 \right ) \right )\cdot 2 \log (M+1) + 2\sum_{k=1}^M \log k \\
+\end{eqnarray}
+
+N \gg M \Rightarrow N-(M+1) \approx N
+
+\begin{eqnarray}
+&=& 2N\log (M+1) + 2\sum_{k=1}^M \log k \\
+&<& 2N\log (M+1) + 2M \log M \\
+&\Rightarrow& \mathcal{O}(N\log{}(M+1)) \approx \mathcal{O}(N\log{}(M))
+\end{eqnarray}
+
+
+
+
+
+----------------
+space complexity
+----------------
+
+M+1 のprioriy queue -> O(M)
+
+
+This program calculates the Lowest Common multiple  
+for excessively long input values 
+
+

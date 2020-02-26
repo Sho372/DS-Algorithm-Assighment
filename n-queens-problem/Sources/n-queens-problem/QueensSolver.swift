@@ -96,4 +96,4 @@ var board = Board(size: 8)
 solveQueens(board: &board, row: 0, col: 0)
 
 print("")
-print("\(possibilities) possible ways") //
+print("\(possibilities) possible ways")
