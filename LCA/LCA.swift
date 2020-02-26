@@ -86,8 +86,8 @@ extension Queue: CustomStringConvertible {
 
 class LCASolver {
 
-    private var adjList: [[Int]] = [[]]
-    private var nodes: [[Int]] = [[Int]]()
+    private var adjList: [[Int]] = []
+    private var nodes: [[Int]] = []
     private var depth: [Int] = []
     private var parent: [Int] = []
 
@@ -137,7 +137,7 @@ class LCASolver {
 
     private func lcaHelper(p:Int, q:Int) {
         if p == q {
-            print("output: \(p)")
+            print("LCA: \(p)")
         } else {  
             lcaHelper(p: parent[p], q:parent[q])
         }
