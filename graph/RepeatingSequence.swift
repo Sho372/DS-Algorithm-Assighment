@@ -80,7 +80,6 @@ class RepeatingSequenceSolver {
         let firstLine = readLine()!.split(separator: " ")
         var A = Int(firstLine[0])!
         let p = Int(firstLine[1])!
-        print("\(A),\(p)")
         D.append(A)
         while !uf.connected(A, next(A ,p)) {
             D.append(next(A ,p))
