@@ -84,26 +84,42 @@ extension Queue: CustomStringConvertible {
     }
 }
 
-class LCASolver {
+class SushiReviewSolver {
 
-    private var adjList: [[Int]] = []
-    private var nodes: [[Int]] = []
-    private var depth: [Int] = []
-    private var parent: [Int] = []
+    private var adjList:[[Int]] = [[Int]]()
+    private var sushiRestaurant:[Int] = [Int]()
+    private var sushiRestaurantPerm:[[Int]] = [[Int]]()
+    private var minDist:[[Int]] = [[Int]]()
 
-    public init() {}
+    public init () {}
 
     public func solve() {
         createAdjList()
-        bfs()
-        lca()
+        for i in 0..<adjList.count {
+            bfs(from: i)
+        }
+
+        var minTime = (adjList.count-1) * adjList.count
+        for p in sushiRestaurantPerm {
+            let tmp = getMinTime(p)
+            minTime = min(tmp, minTime)
+        }
+        print(minTime)
     }
 
     private func createAdjList() {
 
-        let n = Int(readLine()!)!
-        adjList = [[Int]](repeating: [], count: n + 1)
-        
+        let firstLine = readLine()!.split(separator: " ")
+        let n = Int(firstLine[0])!
+        let m = Int(firstLine[1])!
+
+        let seconLine = readLine()!.split(separator: " ")
+        for i in 0..<m {
+            sushiRestaurant.append(Int(seconLine[i])!)
+        }
+        permutation()
+
+        adjList = [[Int]](repeating: [], count: n)
         for _ in 0..<n-1 {
             let edge = readLine()!.split(separator: " ")
             let u = Int(edge[0])!
@@ -113,54 +129,51 @@ class LCASolver {
         }
     }
 
-    private func bfs() {
-        var visited = [Bool](repeating: false, count: adjList.count)
-        depth = [Int](repeating: 0, count: adjList.count)
-        parent = [Int](repeating: 0, count: adjList.count)
-        let queue = Queue<Int>()
-        queue.enqueue(item: 1)
-        visited[1] = true
-        depth[1] = 0`
+    private func bfs(from: Int) {
+        var distance = [Int](repeating: -1, count: adjList.count)
+        let q = Queue<Int>()
+        q.enqueue(item: from)
+        distance[from] = 0
 
-        while !queue.isEmpty() {
-            let first = queue.dequeue()!
+        while !q.isEmpty() {
+            let first = q.dequeue()!
             for v in adjList[first] {
-                if !visited[v] {
-                    queue.enqueue(item: v)
-                    parent[v] = first
-                    depth[v] = depth[first] + 1  
-                    visited[v] = true
+                if distance[v] == -1 {
+                    q.enqueue(item: v)
+                    distance[v] = distance[first] + 1 
+                }
+            }
+        }
+        minDist.append(distance)
+    }
+
+    private func getMinTime(_ array: [Int]) -> Int {
+        var m = 0
+        for i in 0..<array.count-1 {
+            m += minDist[array[i]][array[i+1]]
+        }
+        return m
+    }
+
+    private func permutationHelper(len: Int, _ chosen: inout [Int]) {
+        if len == 0 {
+            sushiRestaurantPerm.append(chosen)
+        } else {
+            for i in sushiRestaurant {
+                if !chosen.contains(i) {
+                    chosen.append(i)
+                    permutationHelper(len: len-1, &chosen)
+                    chosen.removeLast()
                 }
             }
         }
     }
 
-    private func lcaHelper(p:Int, q:Int) {
-        if p == q {
-            print("LCA: \(p)")
-        } else {  
-            lcaHelper(p: parent[p], q:parent[q])
-        }
+    private func permutation() {
+        var chosen = [Int]()
+        permutationHelper(len: sushiRestaurant.count, &chosen)
     }
-
-    private func lca() {
-        let m = Int(readLine()!)!
-        for _ in 0..<m {
-            let pairs = readLine()!.split(separator: " ")
-            var p = Int(pairs[0])!
-            var q = Int(pairs[1])!
-            while depth[p] != depth[q] {
-                if depth[p] > depth[q] {
-                    p = parent[p]
-                } else {
-                    q = parent[q]
-                }
-            }
-            lcaHelper(p: p, q: q)
-        }
-    }
-
 }
 
-let lcaSolver =  LCASolver()
-lcaSolver.solve()
+let solver = SushiReviewSolver()
+solver.solve()
