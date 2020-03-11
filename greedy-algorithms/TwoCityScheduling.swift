@@ -36,7 +36,4 @@ class Solution {
         return minCost
     }
 }
-let costs = [[518,518],[71,971],[121,862],[967,607],[138,754],[513,337],[499,873],[337,387],[647,917],[76,417]]
-let s = Solution()
-print(s.twoCitySchedCost(costs))
 

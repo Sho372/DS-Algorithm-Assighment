@@ -17,7 +17,3 @@ class Solution {
         return sizes
     }
 }
-
-let s = Solution()
-print(s.partitionLabels("ababcbacadefegdehijhklij"))
-
